@@ -26,8 +26,8 @@
 
 ## Usage:
 
-	./compute_coefficients.py  sky130A/metal_stack_sky130A.py
-	./compute_coefficients.py  gf180mcuD/metal_stack_gf180mcuD.py
+	./capiche.py  sky130A/metal_stack_sky130A.py
+	./capiche.py  gf180mcuD/metal_stack_gf180mcuD.py
 
 > [!NOTE]  
 > If FasterCap isn't in the standard execution path, set the environment

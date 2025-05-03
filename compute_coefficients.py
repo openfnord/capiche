@@ -321,7 +321,7 @@ def compute_areacap(process):
 # the wire.  The fringe capacitance values are parsed at the given size
 #-----------------------------------------------------------------------------
 
-def compute_fringe(process, metals, substrates, areacap, size):
+def compute_fringe(process, metals, limits, substrates, areacap, size, verbose=0):
 
     # "fringe" is a dictionary with entry keys "<layer>+<layer>" and value in aF/um.
     fringe = {}
@@ -1285,22 +1285,28 @@ def compute_coefficients(stack_def_file, magic_startup_file=None, doshield=True,
     print(stackupfile_dict['process'])
 
     try:
-        process
+        stackupfile_dict['process']
     except:
         print('Warning:  Metal stack does not define process!')
         process = 'unknown'
+    else:
+        process = stackupfile_dict['process']
 
     try:
-        layers
+        stackupfile_dict['layers']
     except:
         print('Error:  Metal stack does not define layers!')
         sys.exit(1)
+    else:
+        layers = stackupfile_dict['layers']
 
     try:
-        limits
+        stackupfile_dict['limits']
     except:
         print('Error:  Metal stack does not define limits!')
         sys.exit(1)
+    else:
+        limits = stackupfile_dict['limits']
 
     if magic_startup_file == None:
         # Try to get pdk installation from $PDK_ROOT
@@ -1359,8 +1365,8 @@ def compute_coefficients(stack_def_file, magic_startup_file=None, doshield=True,
         print('Computing coefficients.')
 
     areacap = compute_areacap(process)
-    fringe = compute_fringe(process, metals, substrates, areacap, 1)
-    fringe10 = compute_fringe(process, metals, substrates, areacap, 10)
+    fringe = compute_fringe(process, metals, limits, substrates, areacap, 1)
+    fringe10 = compute_fringe(process, metals, limits, substrates, areacap, 10)
 
     sidewall = None
     fringeshield = None

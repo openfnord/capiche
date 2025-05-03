@@ -106,9 +106,15 @@ def create_mag_techfile(stackupfile, metals, substrates, areacap, fringe, sidewa
         print(layer)
         print(plane)
         print(alias)
-        
+
+        # Sanity check
+        if not sidewall:
+            print('Note:  No sidewalls calculated')
+        else:
+            ext_data += f"""# {metal}
+ defaultsidewall    {layer_or_alias} {plane} {sidewall[metal][0]:.3f} {sidewall[metal][1]:.3f}\n"""
+
         ext_data += f"""# {metal}
- defaultsidewall    {layer_or_alias} {plane} {sidewall[metal][0]:.3f} {sidewall[metal][1]:.3f}
  defaultareacap     {layer_or_alias} {plane} {areacap[metal+'+'+substrate_name]:.3f}
  defaultperimeter   {layer_or_alias} {plane} {fringe[metal+'+'+substrate_name]:.3f}\n\n"""
 
